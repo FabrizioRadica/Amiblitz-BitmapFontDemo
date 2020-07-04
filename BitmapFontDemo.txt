@@ -1,0 +1,39 @@
+;**** FONT DEMO by Fabrizio Radica ****
+BitMap 0,320,200,5
+
+image$="assets/fonts.iff"
+sizeblk=32 ;size of shape
+
+;GRAB SHAPES FROM BITMAP
+LoadPalette 0,image$,0
+LoadBitMap 0,image$
+   _shape=0
+   For y=0 To 5
+   For x=0 To 9
+     GetaShape _shape,x*sizeblk,y*sizeblk,sizeblk,sizeblk
+     _shape+1
+   Next
+  Next
+Cls
+
+InitCopList 0,44,200,$05,8,32,0
+DisplayBitMap 0,0
+PalRGB 0,0,0,0,0
+DisplayPalette 0,0
+
+msg$="CIAO AMICI"
+
+BLITZ
+CreateDisplay 0
+
+While Joyb(0)=0
+    VWait
+    For i=1 To Len(msg$)
+      c$=Mid$(msg$,i,1)
+      If c$<>" "
+       f=Asc(c$)-65
+       Block f,(32*i)-32,100
+      EndIf
+    Next
+Wend
+End
